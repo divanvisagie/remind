@@ -24,9 +24,9 @@ char* getenv_value(char* name) {
 }
 
 bool print_header() {
-	printf("##################################\n");
-	printf("#             Reminders           \n");
-	printf("##################################\n");
+	printf("###################################\n");
+	printf("#             Reminders           # \n");
+	printf("###################################\n\n");
 	return true;
 }
 
@@ -44,11 +44,11 @@ void check_reminders(char* file_path) {
 		if (!has_printed_header)	{
 			has_printed_header = print_header();
 		}
-		printf("%s\n", line);
+		printf("-> %s", line);
 	}
 
 	if (has_printed_header) {
-		printf("##################################\n");
+		printf("\n");
 	}
 }
 
