@@ -10,7 +10,7 @@ typedef struct {
     bool check;
     char* add;
     bool edit;
-    int  delete;   // line number to delete, -1 = none
+    int  delete;   // Line number to delete, -1 = none
 } Args;
 
 bool print_header(void) {
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
                 exit(1);
 			}
 			args.add = argv[i + 1];
-            i++; // skip over the number
+            i++; // Skip over because we already read it above
 		}
 		else if (strcmp("-d", argv[i]) == 0) {
             if (i + 1 >= argc) {
@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
                 exit(1);
             }
             args.delete = (int) line_n;
-            i++; // skip over the number
+            i++;
         }
     }
 
@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
 	} else {
         char *const exec_args[] = {"nvim", file_path, NULL};
         execvp("nvim", exec_args);
-        perror("execvp"); // only if exec fails
+        perror("execvp"); 
         return 1;
     }
 
