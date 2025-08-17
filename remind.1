@@ -1,0 +1,88 @@
+.\" remind.1 – manual page for the remind program
+.TH REMIND 1 "August 2025" "remind 0.1" "User Commands"
+.SH NAME
+remind \- simple reminder manager
+
+.SH SYNOPSIS
+.B remind
+[\-c] [\-a TEXT] [\-d N]
+
+.SH DESCRIPTION
+.B remind
+is a small program to manage personal reminders stored in
+\fI$HOME/.local/state/remind/reminders\fR.
+
+Reminders are stored as plain text, one per line.  
+The design is inspired by the classic
+.BR mail (1)
+program in BSD Unix: simple commands, plain text storage, and direct editing.
+
+.SH OPTIONS
+.TP
+.B \-c
+Check reminders. Prints the current list of reminders to stdout.
+
+.TP
+.B \-a \fITEXT\fR
+Add a new reminder line containing \fITEXT\fR.
+If \fITEXT\fR contains spaces, quote it.
+
+.TP
+.B \-d \fIN\fR
+Delete reminder at line number \fIN\fR (1-based).
+
+.TP
+.B (no options)
+Open the reminders file in \fInvim\fR for manual editing.
+
+.SH FILES
+.TP
+\fI$HOME/.local/state/remind/reminders\fR
+Storage location of reminders.
+
+.SH EXAMPLES
+.TP
+Add a reminder:
+.EX
+remind -a "Buy milk"
+.EE
+
+.TP
+List all reminders:
+.EX
+remind -c
+.EE
+
+.TP
+Delete the second reminder:
+.EX
+remind -d 2
+.EE
+
+.TP
+Edit reminders manually in \fInvim\fR:
+.EX
+remind
+.EE
+
+.TP
+Automatically check reminders every time you start a shell:
+.EX
+echo 'remind -c' >> ~/.zshrc
+.EE
+
+.SH SEE ALSO
+.BR mail (1),
+.BR nvim (1),
+.BR man (1)
+
+.SH HISTORY
+The
+.B remind
+utility first appeared in 2025.  
+It was inspired by
+.BR mail (1)
+in BSD Unix.
+
+.SH AUTHOR
+Divan Visagie, 2025.

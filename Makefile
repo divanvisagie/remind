@@ -6,3 +6,4 @@ run: main
 
 install: main
 	cp bin/remind /usr/local/bin/
+	cp remind.1 /usr/local/share/man/man1/
