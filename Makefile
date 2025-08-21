@@ -1,9 +1,12 @@
 main: 
+	mkdir -p ./bin
 	gcc src/main.c -o bin/remind
 
 run: main
 	bin/remind
 
 install: main
-	cp bin/remind /usr/local/bin/
-	cp remind.1 /usr/local/share/man/man1/
+	mkdir -p ~/.local/bin
+	cp bin/remind ~/.local/bin/
+	mkdir -p ~/.local/share/man/man1
+	cp remind.1 ~/.local/share/man/man1/
