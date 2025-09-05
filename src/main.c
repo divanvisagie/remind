@@ -41,12 +41,12 @@ bool print_header(int width) {
 void ensure_remind_dir(const char *file_path) {
     char dir_path[PATH_MAX];
     strcpy(dir_path, file_path);
-    
+
     // Find the last slash to get directory path
     char *last_slash = strrchr(dir_path, '/');
     if (last_slash) {
         *last_slash = '\0';  // Terminate string at last slash
-        
+
         // Use system command to create directory recursively
         char mkdir_cmd[PATH_MAX + 20];
         snprintf(mkdir_cmd, sizeof(mkdir_cmd), "mkdir -p \"%s\"", dir_path);
@@ -58,7 +58,7 @@ void ensure_remind_dir(const char *file_path) {
 void check_reminders(const char *file_path) {
     // Ensure directory exists first
     ensure_remind_dir(file_path);
-    
+
     FILE *f = fopen(file_path, "r");
     if (!f) {
         // Create empty file if it doesn't exist
@@ -81,7 +81,7 @@ void check_reminders(const char *file_path) {
         lines[lc - 1] = strdup(line);
 		lc++;
     }
-    
+
     // Check if we hit the limit before closing file
     bool hit_limit = !feof(f);
     fclose(f);
@@ -220,7 +220,7 @@ int main(int argc, char **argv) {
 		ensure_remind_dir(file_path);
 	    char *editor = getenv("EDITOR");
 		if (!editor) {
-			editor = "vim";
+			editor = "vi";
 		}
 		char *const exec_args[] = {editor, file_path, NULL};
         execvp(editor, exec_args);

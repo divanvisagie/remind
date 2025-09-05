@@ -1,91 +1,84 @@
-# remind
+# NAME
 
-A small Unix-style reminder manager, inspired by BSD’s [`mail(1)`](https://man.openbsd.org/mail.1).
+remind - simple reminder manager
 
-Reminders are stored as plain text, one per line, in:
+# SYNOPSIS
 
-`$HOME/.local/state/remind/reminders`
+**remind** \[-c\] \[-a TEXT\] \[-d N\]
 
-This makes it easy to read, edit, back up, or even sync across systems.
+# DESCRIPTION
 
----
+**remind** is a small program to manage personal reminders stored in
+*$HOME/.local/state/remind/reminders*.
 
-## Features
+Reminders are stored as plain text, one per line. The design is inspired
+by the classic **mail**(1) program in BSD Unix: simple commands, plain
+text storage, and direct editing.
 
-- **Check** reminders with `remind -c`
-- **Add** reminders with `remind -a "Buy milk"`
-- **Delete** reminders with `remind -d 2`
-- **Edit** reminders directly in `nvim` (just run `remind` with no flags)
-- **Plain text storage** — nothing hidden, no databases, no lock-in
-- **Inspired by BSD `mail(1)`** — simple commands, simple storage
+# OPTIONS
 
----
+**-c**
 
-## Installation
+:   Check reminders. Prints the current list of reminders to stdout.
 
-Clone the repo and install:
 
-```sh
-git clone https://github.com/divanvisagie/remind.git
-cd remind
-make
-sudo make install
-````
+**-a *TEXT***
 
-By default, this installs the binary into `/usr/local/bin` and the man page into `/usr/local/share/man/man1`.
+:   Add a new reminder line containing *TEXT*. If *TEXT* contains
+    spaces, quote it.
 
----
 
-## Usage
+**-d *N***
 
-Add a new reminder:
+:   Delete reminder at line number *N* (1-based).
 
-```sh
-remind -a "Buy milk"
-```
 
-Check your reminders:
+**(no options)**
 
-```sh
-remind -c
-```
+:   Open the reminders file in *$EDITOR* for manual editing. If no
+    $EDITOR is set, use *vi*.
+
+# FILES
+
+*$HOME/.local/state/remind/reminders*
+
+:   Storage location of reminders.
+
+# EXAMPLES
+
+Add a reminder:
+
+:   remind -a "Buy milk"
+
+
+List all reminders:
+
+:   remind -c
+
 
 Delete the second reminder:
 
-```sh
-remind -d 2
-```
+:   remind -d 2
 
-Edit reminders manually in `nvim`:
 
-```sh
-remind
-```
+Edit reminders manually in *nvim*:
 
----
+:   remind
 
-## Pro tip
 
-Add this to your shell config (e.g. `.zshrc`) so you see reminders every time you start a shell:
+Automatically check reminders every time you start a shell:
 
-```sh
-remind -c
-```
+:   echo 'remind -c' >> ~/.zshrc
 
----
+# SEE ALSO
 
-## Man page
+**mail**(1), **nvim**(1), **man**(1)
 
-Once installed, you can read the full documentation with:
+# HISTORY
 
-```sh
-man remind
-```
+The **remind** utility first appeared in 2025. It was inspired by
+**mail**(1) in BSD Unix.
 
----
-
-## Author
+# AUTHOR
 
 Divan Visagie, 2025.
-Inspired by BSD’s `mail(1)`.
-

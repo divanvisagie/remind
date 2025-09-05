@@ -12,7 +12,7 @@ remind \- simple reminder manager
 is a small program to manage personal reminders stored in
 \fI$HOME/.local/state/remind/reminders\fR.
 
-Reminders are stored as plain text, one per line.  
+Reminders are stored as plain text, one per line.
 The design is inspired by the classic
 .BR mail (1)
 program in BSD Unix: simple commands, plain text storage, and direct editing.
@@ -33,7 +33,7 @@ Delete reminder at line number \fIN\fR (1-based).
 
 .TP
 .B (no options)
-Open the reminders file in \fInvim\fR for manual editing.
+Open the reminders file in \fI$EDITOR\fR for manual editing. If no $EDITOR is set, use \fIvi\fR.
 
 .SH FILES
 .TP
@@ -79,7 +79,7 @@ echo 'remind -c' >> ~/.zshrc
 .SH HISTORY
 The
 .B remind
-utility first appeared in 2025.  
+utility first appeared in 2025.
 It was inspired by
 .BR mail (1)
 in BSD Unix.
