@@ -37,11 +37,36 @@ bool print_header(int width) {
     return true;
 }
 
+/// Ensures the directory for the reminders file exists
+void ensure_remind_dir(const char *file_path) {
+    char dir_path[PATH_MAX];
+    strcpy(dir_path, file_path);
+    
+    // Find the last slash to get directory path
+    char *last_slash = strrchr(dir_path, '/');
+    if (last_slash) {
+        *last_slash = '\0';  // Terminate string at last slash
+        
+        // Use system command to create directory recursively
+        char mkdir_cmd[PATH_MAX + 20];
+        snprintf(mkdir_cmd, sizeof(mkdir_cmd), "mkdir -p \"%s\"", dir_path);
+        system(mkdir_cmd);
+    }
+}
+
 /// Checks the reminders in the file and prints them out
 void check_reminders(const char *file_path) {
+    // Ensure directory exists first
+    ensure_remind_dir(file_path);
+    
     FILE *f = fopen(file_path, "r");
     if (!f) {
-        perror("fopen");
+        // Create empty file if it doesn't exist
+        f = fopen(file_path, "w");
+        if (f) {
+            fclose(f);
+        }
+        // No reminders to show yet
         return;
     }
 
@@ -186,10 +211,13 @@ int main(int argc, char **argv) {
     if (args.check) {
         check_reminders(file_path);
     } else if (args.delete >= 0) {
+		ensure_remind_dir(file_path);
 		delete_line(file_path, args.delete);
 	} else if (args.add != NULL) {
+		ensure_remind_dir(file_path);
 		add_reminder(file_path, args.add);
 	} else {
+		ensure_remind_dir(file_path);
 	    char *editor = getenv("EDITOR");
 		if (!editor) {
 			editor = "vim";

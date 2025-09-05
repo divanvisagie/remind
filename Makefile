@@ -12,6 +12,9 @@ run: main
 valgrind: debug
 	./scripts/valgrind_tests.sh
 
+test: main
+	./scripts/simple_test.sh
+
 install: main
 	mkdir -p ~/.local/bin
 	cp bin/remind ~/.local/bin/
