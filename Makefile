@@ -2,6 +2,11 @@ main:
 	mkdir -p ./bin
 	gcc src/main.c -o bin/remind
 
+test-c:
+	mkdir -p ./bin
+	gcc tests/test_remind.c -o bin/test_remind
+	./bin/test_remind
+
 debug:
 	mkdir -p ./bin
 	gcc -g -O0 src/main.c -o bin/remind-debug
@@ -12,8 +17,9 @@ run: main
 valgrind: debug
 	./scripts/valgrind_tests.sh
 
-test: main
-	./scripts/simple_test.sh
+test: test-c
+
+
 
 readme: remind.1
 	./scripts/generate_readme.sh
@@ -35,4 +41,4 @@ uninstall:
 clean:
 	rm -rf ./bin
 
-.PHONY: main debug run valgrind test readme test-all install uninstall clean
+.PHONY: main debug run valgrind test test-c readme test-all install uninstall clean
