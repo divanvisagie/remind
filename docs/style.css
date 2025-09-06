@@ -25,6 +25,86 @@ body {
     color: #000;
 }
 
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    .nav {
+        padding: 0.75rem;
+    }
+
+    .nav ul {
+        flex-wrap: wrap;
+    }
+
+    .nav ul {
+        gap: 0.75rem;
+    }
+
+    pre {
+        padding: 0.75rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    code {
+        padding: 0.15rem 0.3rem;
+        word-break: break-word;
+    }
+
+    table {
+        font-size: 0.85rem;
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+    }
+
+    th,
+    td {
+        padding: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    pre {
+        padding: 0.5rem;
+    }
+}
+
 h1,
 h2,
 h3,
@@ -100,11 +180,22 @@ th {
     margin: 0;
     padding: 0;
     list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
 }
 
 .nav li {
-    display: inline-block;
-    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    min-height: 2rem;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    min-height: 1.8rem;
 }
 
 #nav-title {
@@ -163,25 +254,25 @@ dl dd {
 /* Dark mode - optimized for LCD/OLED comfort */
 @media (prefers-color-scheme: dark) {
     body {
-        color: #d4d4d8;
-        background-color: #18181b;
+        color: #b3b3b3;
+        background-color: #0f0f0f;
     }
 
     code {
         border: 1px solid #404040;
-        background-color: #27272a;
-        color: #f4f4f5;
+        background-color: #1a1a1a;
+        color: #cccccc;
     }
 
     pre {
         border: 1px solid #404040;
-        background-color: #1f1f23;
-        color: #d4d4d8;
+        background-color: #0d0d0d;
+        color: #b3b3b3;
     }
 
     blockquote {
         border-left: 4px solid #525252;
-        color: #a1a1aa;
+        color: #999999;
     }
 
     /* Dark mode link styling for readability */
@@ -203,13 +294,13 @@ dl dd {
     }
 
     th {
-        background-color: #27272a;
-        color: #d4d4d8;
+        background-color: #1a1a1a;
+        color: #b3b3b3;
     }
 
     .nav {
         border: 1px solid #404040;
-        background-color: #27272a;
+        background-color: #0d0d0d;
     }
 
     #nav-title a {
@@ -223,14 +314,14 @@ dl dd {
     h4,
     h5,
     h6 {
-        color: #f4f4f5;
+        color: #cccccc;
     }
 
     dt {
-        color: #f4f4f5;
+        color: #cccccc;
     }
 
     dd {
-        color: #d4d4d8;
+        color: #b3b3b3;
     }
 }
