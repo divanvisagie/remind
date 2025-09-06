@@ -22,7 +22,17 @@ test-all: test valgrind
 	@echo "All tests and checks passed!"
 
 install: main
-	mkdir -p ~/.local/bin
-	cp bin/remind ~/.local/bin/
-	mkdir -p ~/.local/share/man/man1
-	cp remind.1 ~/.local/share/man/man1/
+	./scripts/install.sh
+
+uninstall:
+	@echo "Removing remind from common installation locations..."
+	@rm -f ~/.local/bin/remind
+	@rm -f ~/.local/share/man/man1/remind.1
+	@if [ -w /usr/local/bin ]; then rm -f /usr/local/bin/remind; fi
+	@if [ -w /usr/local/share/man/man1 ]; then rm -f /usr/local/share/man/man1/remind.1; fi
+	@echo "Uninstall complete"
+
+clean:
+	rm -rf ./bin
+
+.PHONY: main debug run valgrind test readme test-all install uninstall clean
