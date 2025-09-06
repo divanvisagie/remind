@@ -6,11 +6,7 @@ This document tracks planned features and improvements for the remind project.
 
 ### High Priority
 
-- [ ] **Rewrite installer in C**
-  - Replace shell script installer with a more robust C implementation
-  - Better error handling and cross-platform compatibility
-  - Improved user experience with progress indicators
-  - Status: Not started
+_No current high priority tasks._
 
 ## Future Features
 
@@ -34,7 +30,14 @@ This document tracks planned features and improvements for the remind project.
 
 ## Completed
 
-_Nothing yet - this is a new roadmap!_
+### High Priority
+- [x] **Rewrite installer in C** ✅
+  - ✅ Replaced shell script installer with robust C implementation
+  - ✅ Better error handling and cross-platform compatibility
+  - ✅ Improved user experience with colored output and progress indicators
+  - ✅ FreeBSD and Unix-like system compatibility
+  - ✅ Integrated with Makefile build system
+  - Status: **Completed** - September 2025
 
 ---
 

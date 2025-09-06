@@ -1,15 +1,21 @@
+CC = cc
+
 main:
 	mkdir -p ./bin
-	gcc src/main.c -o bin/remind
+	$(CC) src/main.c -o bin/remind
 
 test-c:
 	mkdir -p ./bin
-	gcc tests/test_remind.c -o bin/test_remind
+	$(CC) tests/test_remind.c -o bin/test_remind
 	./bin/test_remind
 
 debug:
 	mkdir -p ./bin
-	gcc -g -O0 src/main.c -o bin/remind-debug
+	$(CC) -g -O0 src/main.c -o bin/remind-debug
+
+installer:
+	mkdir -p ./bin
+	$(CC) src/install.c -o bin/install
 
 run: main
 	bin/remind
@@ -27,8 +33,8 @@ docs: remind.1
 test-all: test valgrind
 	@echo "All tests and checks passed!"
 
-install: main
-	./scripts/install.sh
+install: main installer
+	./bin/install
 
 uninstall:
 	@echo "Removing remind from common installation locations..."
@@ -41,4 +47,4 @@ uninstall:
 clean:
 	rm -rf ./bin
 
-.PHONY: main debug run valgrind test test-c docs test-all install uninstall clean
+.PHONY: main debug run valgrind test test-c docs test-all installer install uninstall clean
