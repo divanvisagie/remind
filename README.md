@@ -180,6 +180,9 @@ make test-all   # Run all tests including memory checks
 
 ## Contributing
 
+Contributions are welcome through multiple channels:
+
+### Via Git Hosting Platform
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -187,12 +190,32 @@ make test-all   # Run all tests including memory checks
 5. Ensure all tests pass (`make test-all`)
 6. Submit a pull request
 
+### Via Email Patch
+You can also contribute by sending git patches via email:
+```bash
+git format-patch origin/main
+# Send the generated .patch files to the maintainer
+```
+
+### Feature Proposals
+
+To propose new features or improvements:
+
+1. **Check the roadmap**: Review `ROADMAP.md` to see what's already planned
+2. **Submit a PR to the roadmap**: Add your proposal to `ROADMAP.md` with a pull request
+3. **Discuss in the PR**: Use the pull request discussion to refine the idea
+4. **Implement after approval**: Once the roadmap change is merged, implement the feature
+
+This workflow ensures all contributors can see what's being considered and helps coordinate development efforts. Proposals can be submitted through your preferred method - pull requests on the hosting platform or email patches.
+
+**Philosophy**: This project follows a git-native development approach where all planning, discussion, and coordination happens through the repository itself rather than external platform-specific tools. This keeps the project portable and independent of any particular hosting service, allowing contributions through any git workflow.
+
 ## License
 
 This project is licensed under the BSD 3-Clause License. See [LICENSE.md](LICENSE.md) for details, or view the [online license](https://divanv.com/remind/LICENSE.html).
 
 ## Author
 
-Divan Visagie, 2025
+[Divan Visagie](me@divanv.com), 2025
 
 Inspired by the classic `mail(1)` utility from BSD Unix.

@@ -167,6 +167,8 @@ class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test       <span class="co"># Run functional tests</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-all   <span class="co"># Run all tests including memory checks</span></span></code></pre></div>
 <h2 id="contributing">Contributing</h2>
+<p>Contributions are welcome through multiple channels:</p>
+<h3 id="via-git-hosting-platform">Via Git Hosting Platform</h3>
 <ol type="1">
 <li>Fork the repository</li>
 <li>Create a feature branch</li>
@@ -175,12 +177,39 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href=
 <li>Ensure all tests pass (<code>make test-all</code>)</li>
 <li>Submit a pull request</li>
 </ol>
+<h3 id="via-email-patch">Via Email Patch</h3>
+<p>You can also contribute by sending git patches via email:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> format-patch origin/main</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the generated .patch files to the maintainer</span></span></code></pre></div>
+<h3 id="feature-proposals">Feature Proposals</h3>
+<p>To propose new features or improvements:</p>
+<ol type="1">
+<li><strong>Check the roadmap</strong>: Review <code>ROADMAP.md</code>
+to see what’s already planned</li>
+<li><strong>Submit a PR to the roadmap</strong>: Add your proposal to
+<code>ROADMAP.md</code> with a pull request</li>
+<li><strong>Discuss in the PR</strong>: Use the pull request discussion
+to refine the idea</li>
+<li><strong>Implement after approval</strong>: Once the roadmap change
+is merged, implement the feature</li>
+</ol>
+<p>This workflow ensures all contributors can see what’s being
+considered and helps coordinate development efforts. Proposals can be
+submitted through your preferred method - pull requests on the hosting
+platform or email patches.</p>
+<p><strong>Philosophy</strong>: This project follows a git-native
+development approach where all planning, discussion, and coordination
+happens through the repository itself rather than external
+platform-specific tools. This keeps the project portable and independent
+of any particular hosting service, allowing contributions through any
+git workflow.</p>
 <h2 id="license">License</h2>
 <p>This project is licensed under the BSD 3-Clause License. See <a
 href="LICENSE.md">LICENSE.md</a> for details, or view the <a
 href="https://divanv.com/remind/LICENSE.html">online license</a>.</p>
 <h2 id="author">Author</h2>
-<p>Divan Visagie, 2025</p>
+<p><a href="me@divanv.com">Divan Visagie</a>, 2025</p>
 <p>Inspired by the classic <code>mail(1)</code> utility from BSD
 Unix.</p>
 </body>

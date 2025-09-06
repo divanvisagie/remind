@@ -41,4 +41,4 @@ _Nothing yet - this is a new roadmap!_
 **Last Updated:** 6 September 2025
 **Maintained by:** Divan Visagie
 
-To propose new features or discuss existing ones, please open an issue on the GitHub repository.
+To propose new features or discuss existing ones, please submit a pull request with changes to this roadmap document, or open an issue on the GitHub repository for discussion first.
