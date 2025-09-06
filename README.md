@@ -159,8 +159,8 @@ make install    # Install to system
 
 Full documentation is available in the `docs/` directory:
 
-- **[Online Documentation](docs/index.html)** - Browse the complete documentation
-- **[Manual Page](docs/remind.1.html)** - Complete reference documentation (`man remind`)
+- **[Online Documentation](https://divanv.com/remind/)** - Browse the complete documentation
+- **[Manual Page](https://divanv.com/remind/remind.1.html)** - Complete reference documentation (`man remind`)
 - **Generate docs**: Run `make docs` to regenerate HTML documentation
 
 You can also view the manual page directly:
@@ -189,7 +189,7 @@ make test-all   # Run all tests including memory checks
 
 ## License
 
-This project is licensed under the BSD 3-Clause License. See [LICENSE.md](LICENSE.md) for details, or view the [online license](docs/LICENSE.html).
+This project is licensed under the BSD 3-Clause License. See [LICENSE.md](LICENSE.md) for details, or view the [online license](https://divanv.com/remind/LICENSE.html).
 
 ## Author
 
