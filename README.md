@@ -216,6 +216,6 @@ This project is licensed under the BSD 3-Clause License. See [LICENSE.md](LICENS
 
 ## Author
 
-[Divan Visagie](me@divanv.com), 2025
+[Divan Visagie](mailto:me@divanv.com), 2025
 
 Inspired by the classic `mail(1)` utility from BSD Unix.
