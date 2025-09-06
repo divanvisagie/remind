@@ -93,6 +93,24 @@ else
     fail_test "Should show remaining reminder with correct numbering"
 fi
 
+# Test 7: Help with -h flag
+echo "Test 7: Help with -h flag"
+output=$($BINARY -h)
+if echo "$output" | grep -q "remind - simple reminder manager" && echo "$output" | grep -q "USAGE:" && echo "$output" | grep -q "OPTIONS:"; then
+    pass_test
+else
+    fail_test "Should display help message with -h flag"
+fi
+
+# Test 8: Help with --help flag
+echo "Test 8: Help with --help flag"
+output=$($BINARY --help)
+if echo "$output" | grep -q "remind - simple reminder manager" && echo "$output" | grep -q "EXAMPLES:" && echo "$output" | grep -q "remind -a"; then
+    pass_test
+else
+    fail_test "Should display help message with --help flag"
+fi
+
 # Cleanup
 rm -rf "$TEST_HOME"
 

@@ -19,6 +19,40 @@ typedef struct {
     int  delete;   // Line number to delete, -1 = none
 } Args;
 
+typedef enum {
+    ACTION_CHECK,
+    ACTION_ADD,
+    ACTION_DELETE,
+    ACTION_EDIT,
+    ACTION_HELP
+} Action;
+
+typedef struct {
+    const char* flag;
+    Action action;
+    bool needs_arg;
+} FlagMapping;
+
+void print_help() {
+    printf("remind - simple reminder manager\n\n");
+    printf("USAGE:\n");
+    printf("    remind [OPTIONS]\n\n");
+    printf("OPTIONS:\n");
+    printf("    -c              Check reminders. Prints the current list of reminders.\n");
+    printf("    -a TEXT         Add a new reminder line containing TEXT.\n");
+    printf("    -d N            Delete reminder at line number N (1-based).\n");
+    printf("    -h, --help      Show this help message.\n");
+    printf("    (no options)    Open the reminders file in $EDITOR for manual editing.\n\n");
+    printf("EXAMPLES:\n");
+    printf("    remind -a \"Buy milk\"    Add a reminder\n");
+    printf("    remind -c              List all reminders\n");
+    printf("    remind -d 2            Delete the second reminder\n");
+    printf("    remind                 Edit reminders manually\n\n");
+    printf("FILES:\n");
+    printf("    $HOME/.local/state/remind/reminders    Storage location of reminders\n\n");
+    printf("For more information, see remind(1).\n");
+}
+
 /// Prints a single character on repeat a specific amount of times
 void print_for(char *c, int times) {
    for (int i=0; i < times; i++) printf("%s", c);
@@ -174,33 +208,70 @@ void add_reminder(const char *file_path, const char *text) {
 int main(int argc, char **argv) {
     Args args = {0};
     args.delete = -1;
-	args.add = NULL;
+    args.add = NULL;
+
+    FlagMapping flags[] = {
+        {"-c", ACTION_CHECK, false},
+        {"-a", ACTION_ADD, true},
+        {"-d", ACTION_DELETE, true},
+        {"-h", ACTION_HELP, false},
+        {"--help", ACTION_HELP, false}
+    };
+    const int num_flags = sizeof(flags) / sizeof(flags[0]);
 
     for (int i = 1; i < argc; i++) {
-        if (strcmp("-c", argv[i]) == 0) {
-            args.check = true;
+        bool flag_found = false;
+        
+        for (int j = 0; j < num_flags; j++) {
+            if (strcmp(argv[i], flags[j].flag) == 0) {
+                flag_found = true;
+                
+                switch (flags[j].action) {
+                    case ACTION_CHECK:
+                        args.check = true;
+                        break;
+                        
+                    case ACTION_ADD:
+                        if (i + 1 >= argc) {
+                            fprintf(stderr, "Please supply some text after the -a\n");
+                            exit(1);
+                        }
+                        args.add = argv[i + 1];
+                        i++; // Skip over because we already read it above
+                        break;
+                        
+                    case ACTION_DELETE:
+                        if (i + 1 >= argc) {
+                            fprintf(stderr, "Please supply a line number after -d\n");
+                            exit(1);
+                        }
+                        char *endptr;
+                        long line_n = strtol(argv[i + 1], &endptr, 10);
+                        if (*endptr != '\0' || line_n < 1) {
+                            fprintf(stderr, "Invalid line number: %s\n", argv[i + 1]);
+                            exit(1);
+                        }
+                        args.delete = (int) line_n;
+                        i++;
+                        break;
+                        
+                    case ACTION_HELP:
+                        args.check = false; // Clear other flags
+                        args.add = NULL;
+                        args.delete = -1;
+                        break;
+                        
+                    case ACTION_EDIT:
+                        // Reserved for future use
+                        break;
+                }
+                break;
+            }
         }
-		else if (strcmp("-a", argv[i]) == 0) {
-			if (i + 1 >= argc) {
-                fprintf(stderr, "Please supply some text after the -a\n");
-                exit(1);
-			}
-			args.add = argv[i + 1];
-            i++; // Skip over because we already read it above
-		}
-		else if (strcmp("-d", argv[i]) == 0) {
-            if (i + 1 >= argc) {
-                fprintf(stderr, "Please supply a line number after -d\n");
-                exit(1);
-            }
-            char *endptr;
-            long line_n = strtol(argv[i + 1], &endptr, 10);
-            if (*endptr != '\0' || line_n < 1) {
-                fprintf(stderr, "Invalid line number: %s\n", argv[i + 1]);
-                exit(1);
-            }
-            args.delete = (int) line_n;
-            i++;
+        
+        if (!flag_found) {
+            fprintf(stderr, "Unknown flag: %s\n", argv[i]);
+            exit(1);
         }
     }
 
@@ -208,24 +279,57 @@ int main(int argc, char **argv) {
     snprintf(file_path, sizeof(file_path),
              "%s/.local/state/remind/reminders",
              getenv("HOME"));
-    if (args.check) {
-        check_reminders(file_path);
-    } else if (args.delete >= 0) {
-		ensure_remind_dir(file_path);
-		delete_line(file_path, args.delete);
-	} else if (args.add != NULL) {
-		ensure_remind_dir(file_path);
-		add_reminder(file_path, args.add);
-	} else {
-		ensure_remind_dir(file_path);
-	    char *editor = getenv("EDITOR");
-		if (!editor) {
-			editor = "vi";
-		}
-		char *const exec_args[] = {editor, file_path, NULL};
-        execvp(editor, exec_args);
-        perror("execvp");
-        return 1;
+
+    // Determine which action to take
+    Action chosen_action = ACTION_EDIT; // Default action
+    
+    // Check if help was requested (check the original arguments)
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+            chosen_action = ACTION_HELP;
+            break;
+        }
+    }
+    
+    if (chosen_action != ACTION_HELP) {
+        if (args.check) {
+            chosen_action = ACTION_CHECK;
+        } else if (args.delete >= 0) {
+            chosen_action = ACTION_DELETE;
+        } else if (args.add != NULL) {
+            chosen_action = ACTION_ADD;
+        }
+    }
+
+    switch (chosen_action) {
+        case ACTION_CHECK:
+            check_reminders(file_path);
+            break;
+            
+        case ACTION_DELETE:
+            ensure_remind_dir(file_path);
+            delete_line(file_path, args.delete);
+            break;
+            
+        case ACTION_ADD:
+            ensure_remind_dir(file_path);
+            add_reminder(file_path, args.add);
+            break;
+            
+        case ACTION_HELP:
+            print_help();
+            break;
+            
+        case ACTION_EDIT:
+            ensure_remind_dir(file_path);
+            char *editor = getenv("EDITOR");
+            if (!editor) {
+                editor = "vi";
+            }
+            char *const exec_args[] = {editor, file_path, NULL};
+            execvp(editor, exec_args);
+            perror("execvp");
+            return 1;
     }
 
     return 0;
