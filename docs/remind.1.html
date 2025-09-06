@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>REMIND(1)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="nav">
+    <ul>
+        <li><strong>remind documentation</strong></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="remind.1.html">Manual Page</a></li>
+        <li><a href="LICENSE.html">License</a></li>
+    </ul>
+</nav>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">REMIND(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">REMIND(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">remind - simple reminder manager</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>remind</b> [-c] [-a TEXT] [-d N]</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><b>remind</b> is a small program to manage personal reminders
+    stored in <i>$HOME/.local/state/remind/reminders</i>.</p>
+<p class="Pp">Reminders are stored as plain text, one per line. The design is
+    inspired by the classic <b>mail</b>(1) program in BSD Unix: simple commands,
+    plain text storage, and direct editing.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="c"><a class="permalink" href="#c"><b>-c</b></a></dt>
+  <dd>Check reminders. Prints the current list of reminders to stdout.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="a"><a class="permalink" href="#a"><b>-a <i>TEXT</i></b></a></dt>
+  <dd>Add a new reminder line containing <i>TEXT</i>. If <i>TEXT</i> contains
+      spaces, quote it.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="d"><a class="permalink" href="#d"><b>-d <i>N</i></b></a></dt>
+  <dd>Delete reminder at line number <i>N</i> (1-based).
+    <p class="Pp"></p>
+  </dd>
+  <dt><b>(no options)</b></dt>
+  <dd>Open the reminders file in <i>$EDITOR</i> for manual editing. If no
+      $EDITOR is set, use <i>vi</i>.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt><i>$HOME/.local/state/remind/reminders</i></dt>
+  <dd>Storage location of reminders.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<dl class="Bl-tag">
+  <dt id="Add"><a class="permalink" href="#Add">Add a reminder:</a></dt>
+  <dd>
+    <pre>remind -a &quot;Buy milk&quot;
+    </pre>
+    <p class="Pp"></p>
+  </dd>
+  <dt id="List"><a class="permalink" href="#List">List all reminders:</a></dt>
+  <dd>
+    <pre>remind -c
+    </pre>
+    <p class="Pp"></p>
+  </dd>
+  <dt id="Delete"><a class="permalink" href="#Delete">Delete the second
+    reminder:</a></dt>
+  <dd>
+    <pre>remind -d 2
+    </pre>
+    <p class="Pp"></p>
+  </dd>
+  <dt id="Edit"><a class="permalink" href="#Edit">Edit reminders manually in
+    <i>nvim</i>:</a></dt>
+  <dd>
+    <pre>remind
+    </pre>
+    <p class="Pp"></p>
+  </dd>
+  <dt id="Automatically"><a class="permalink" href="#Automatically">Automatically
+    check reminders every time you start a shell:</a></dt>
+  <dd>
+    <pre>echo 'remind -c' &gt;&gt; ~/.zshrc
+    </pre>
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><b>mail</b>(1), <b>nvim</b>(1), <b>man</b>(1)</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+<p class="Pp">The <b>remind</b> utility first appeared in 2025. It was inspired
+    by <b>mail</b>(1) in BSD Unix.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+<p class="Pp">Divan Visagie, 2025.</p>
+</section>
+</div>
+</body>
+</html>

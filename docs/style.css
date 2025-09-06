@@ -1,0 +1,116 @@
+/*
+ * Documentation stylesheet for remind project
+ * Static CSS file for HTML documentation in docs/
+ *
+ * This file provides styling for:
+ * - index.html (repository overview)
+ * - remind.1.html (manual page)
+ *
+ * Do not regenerate this file - edit manually as needed.
+ */
+
+body {
+    font-family:
+        "JetBrains Mono", "Fira Code", "SF Mono", Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    /*color: #333;*/
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 2rem;
+}
+
+h1 {
+    padding-bottom: 0.5rem;
+}
+
+code {
+    border: 1px solid #333;
+    padding: 0.2rem 0.4rem;
+    /*border-radius: 3px;*/
+    font-family:
+        "JetBrains Mono", "Fira Code", "SF Mono", Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+}
+
+pre {
+    border: 1px solid #333;
+    padding: 1rem;
+    /*border-radius: 5px;*/
+    overflow-x: auto;
+}
+
+pre code {
+    border: none;
+    padding: 0;
+}
+
+blockquote {
+    border-left: 4px solid #3498db;
+    margin-left: 0;
+    padding-left: 1rem;
+    color: #666;
+}
+
+a {
+    /*color: #3498db;*/
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+th,
+td {
+    border: 1px solid #000;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fa;
+}
+
+.nav {
+    border: 1px solid #000;
+    padding: 1rem;
+    /*border-radius: 5px;*/
+    margin-bottom: 2rem;
+}
+
+.nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav li {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+dl dt {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+dl dd {
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+}

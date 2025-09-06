@@ -21,8 +21,8 @@ test: test-c
 
 
 
-readme: remind.1
-	./scripts/generate_readme.sh
+docs: remind.1
+	./scripts/generate_docs.sh
 
 test-all: test valgrind
 	@echo "All tests and checks passed!"
@@ -41,4 +41,4 @@ uninstall:
 clean:
 	rm -rf ./bin
 
-.PHONY: main debug run valgrind test test-c readme test-all install uninstall clean
+.PHONY: main debug run valgrind test test-c docs test-all install uninstall clean

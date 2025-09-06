@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>remind - Simple Reminder Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="nav">
+    <ul>
+        <li><strong>remind documentation</strong></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="remind.1.html">Manual Page</a></li>
+        <li><a href="LICENSE.html">License</a></li>
+    </ul>
+</nav>
+<h1 id="remind">remind</h1>
+<p>A simple command-line reminder manager inspired by the classic BSD
+<code>mail(1)</code> utility.</p>
+<h2 id="overview">Overview</h2>
+<p><code>remind</code> is a lightweight tool for managing personal
+reminders stored as plain text. It follows the Unix philosophy of simple
+commands, plain text storage, and direct editing capabilities.</p>
+<h3 id="shell-integration-example">Shell Integration Example</h3>
+<p>Add <code>remind -c</code> to your shell startup file to see
+reminders when you open a terminal:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add this to your ~/.bashrc, ~/.zshrc, etc.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">remind</span> <span class="at">-c</span></span></code></pre></div>
+<p><strong>Note</strong>: Reminders only appear when you have items to
+show - if your list is empty, you see nothing. This ability to reach
+“inbox zero” encourages you to complete your reminders and treat seeing
+them in your terminal as something that should not be the norm. This is
+part of the core philosophy of <code>remind</code>.</p>
+<p>When you have reminders, you’ll see them displayed like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">###########################################</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                 Reminders               #</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">###########################################</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">1.</span> Buy groceries for dinner</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">2.</span> Call dentist to schedule appointment</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">3.</span> Review pull request <span class="co">#42</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> <span class="co">#</span></span></code></pre></div>
+<p>When your reminder list is empty, you see a clean terminal with no
+output:</p>
+<pre><code>$ # Opening a new terminal session with no reminders
+$ # Clean! No clutter - just your normal prompt</code></pre>
+<p>This makes it impossible to forget important tasks - they’re shown
+whenever you start working, but only when there’s something to
+remember!</p>
+<h3 id="basic-workflow">Basic Workflow</h3>
+<p>Here’s how simple it is to use <code>remind</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add some reminders</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> remind <span class="at">-a</span> <span class="st">&quot;Buy groceries for dinner&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> remind <span class="at">-a</span> <span class="st">&quot;Call dentist to schedule appointment&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> remind <span class="at">-a</span> <span class="st">&quot;Review pull request #42&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># View your reminders</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> remind <span class="at">-c</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">###########################################</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                 Reminders               #</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">###########################################</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">1.</span> Buy groceries for dinner</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">2.</span> Call dentist to schedule appointment</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">3.</span> Review pull request <span class="co">#42</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete a task and remove it</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> remind <span class="at">-d</span> 1    <span class="co"># Removes &quot;Buy groceries for dinner&quot;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Check again - task is gone</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> remind <span class="at">-c</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">###########################################</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#                 Reminders               #</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">###########################################</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="ex">1.</span> Call dentist to schedule appointment</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="ex">2.</span> Review pull request <span class="co">#42</span></span></code></pre></div>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Simple command-line interface</strong> with intuitive
+flags</li>
+<li><strong>Plain text storage</strong> - reminders stored as one line
+per reminder</li>
+<li><strong>Direct editing</strong> - open reminder file in your
+<code>$EDITOR</code></li>
+<li><strong>Cross-platform</strong> - works on Linux, macOS, and other
+Unix-like systems</li>
+<li><strong>No dependencies</strong> - single binary with no external
+requirements</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<h3 id="from-source">From Source</h3>
+<ol type="1">
+<li><p>Clone the repository:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/divanvisagie/remind.git</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> remind</span></code></pre></div></li>
+<li><p>Build the binary:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span></span></code></pre></div></li>
+<li><p>Install (optional):</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span></code></pre></div></li>
+</ol>
+<h3 id="quick-start">Quick Start</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a reminder</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">remind</span> <span class="at">-a</span> <span class="st">&quot;Buy groceries&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all reminders</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">remind</span> <span class="at">-c</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete a specific reminder (by line number)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">remind</span> <span class="at">-d</span> 2</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit reminders manually</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="ex">remind</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Get help</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="ex">remind</span> <span class="at">--help</span></span></code></pre></div>
+<h2 id="usage">Usage</h2>
+<pre><code>remind [OPTIONS]
+
+OPTIONS:
+    -c              Check reminders. Prints the current list of reminders.
+    -a TEXT         Add a new reminder line containing TEXT.
+    -d N            Delete reminder at line number N (1-based).
+    -h, --help      Show help message.
+    (no options)    Open the reminders file in $EDITOR for manual editing.</code></pre>
+<h2 id="files">Files</h2>
+<p>Reminders are stored in
+<code>$HOME/.local/state/remind/reminders</code> as plain text, one
+reminder per line.</p>
+<h2 id="integration">Integration</h2>
+<p>Add to your shell startup file (<code>.bashrc</code>,
+<code>.zshrc</code>, etc.) to see reminders when you open a
+terminal:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&#39;remind -c&#39;</span> <span class="op">&gt;&gt;</span> ~/.zshrc</span></code></pre></div>
+<h2 id="building">Building</h2>
+<p>Requirements: - GCC or compatible C compiler - Make</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span>            <span class="co"># Build the binary</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test       <span class="co"># Run tests</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> clean      <span class="co"># Clean build artifacts</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install    <span class="co"># Install to system</span></span></code></pre></div>
+<h2 id="documentation">Documentation</h2>
+<p>Full documentation is available in the <code>docs/</code>
+directory:</p>
+<ul>
+<li><strong><a href="docs/index.html">Online Documentation</a></strong>
+- Browse the complete documentation</li>
+<li><strong><a href="docs/remind.1.html">Manual Page</a></strong> -
+Complete reference documentation (<code>man remind</code>)</li>
+<li><strong>Generate docs</strong>: Run <code>make docs</code> to
+regenerate HTML documentation</li>
+</ul>
+<p>You can also view the manual page directly:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> ./remind.1          <span class="co"># View local man page</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> docs <span class="kw">&amp;&amp;</span> <span class="ex">open</span> docs/index.html  <span class="co"># Generate and view docs</span></span></code></pre></div>
+<h2 id="development">Development</h2>
+<h3 id="running-tests">Running Tests</h3>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test       <span class="co"># Run functional tests</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-all   <span class="co"># Run all tests including memory checks</span></span></code></pre></div>
+<h2 id="contributing">Contributing</h2>
+<ol type="1">
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Make your changes</li>
+<li>Add tests if applicable</li>
+<li>Ensure all tests pass (<code>make test-all</code>)</li>
+<li>Submit a pull request</li>
+</ol>
+<h2 id="license">License</h2>
+<p>This project is licensed under the BSD 3-Clause License. See <a
+href="LICENSE.md">LICENSE.md</a> for details, or view the <a
+href="docs/LICENSE.html">online license</a>.</p>
+<h2 id="author">Author</h2>
+<p>Divan Visagie, 2025</p>
+<p>Inspired by the classic <code>mail(1)</code> utility from BSD
+Unix.</p>
+</body>
+</html>
