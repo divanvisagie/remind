@@ -38,16 +38,17 @@ void print_help() {
     printf("USAGE:\n");
     printf("    remind [OPTIONS]\n\n");
     printf("OPTIONS:\n");
-    printf("    -c              Check reminders. Prints the current list of reminders.\n");
+    printf("    -c              Check reminders. Prints the current list of reminders. (default)\n");
     printf("    -a TEXT         Add a new reminder line containing TEXT.\n");
     printf("    -d N            Delete reminder at line number N (1-based).\n");
+    printf("    -e              Edit reminders file in $EDITOR.\n");
     printf("    -h, --help      Show this help message.\n");
-    printf("    (no options)    Open the reminders file in $EDITOR for manual editing.\n\n");
+    printf("    (no options)    Check reminders. Prints the current list of reminders.\n\n");
     printf("EXAMPLES:\n");
     printf("    remind -a \"Buy milk\"    Add a reminder\n");
-    printf("    remind -c              List all reminders\n");
+    printf("    remind                 List all reminders\n");
     printf("    remind -d 2            Delete the second reminder\n");
-    printf("    remind                 Edit reminders manually\n\n");
+    printf("    remind -e              Edit reminders manually\n\n");
     printf("FILES:\n");
     printf("    $HOME/.local/state/remind/reminders    Storage location of reminders\n\n");
     printf("For more information, see remind(1).\n");
@@ -212,6 +213,7 @@ int main(int argc, char **argv) {
 
     FlagMapping flags[] = {
         {"-c", ACTION_CHECK, false},
+        {"-e", ACTION_EDIT, false},
         {"-a", ACTION_ADD, true},
         {"-d", ACTION_DELETE, true},
         {"-h", ACTION_HELP, false},
@@ -262,7 +264,7 @@ int main(int argc, char **argv) {
                         break;
                         
                     case ACTION_EDIT:
-                        // Reserved for future use
+                        args.edit = true;
                         break;
                 }
                 break;
@@ -281,8 +283,8 @@ int main(int argc, char **argv) {
              getenv("HOME"));
 
     // Determine which action to take
-    Action chosen_action = ACTION_EDIT; // Default action
-    
+    Action chosen_action = ACTION_CHECK; // Default action
+
     // Check if help was requested (check the original arguments)
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
@@ -290,7 +292,7 @@ int main(int argc, char **argv) {
             break;
         }
     }
-    
+
     if (chosen_action != ACTION_HELP) {
         if (args.check) {
             chosen_action = ACTION_CHECK;
@@ -298,6 +300,8 @@ int main(int argc, char **argv) {
             chosen_action = ACTION_DELETE;
         } else if (args.add != NULL) {
             chosen_action = ACTION_ADD;
+        } else if (args.edit) {
+            chosen_action = ACTION_EDIT;
         }
     }
 

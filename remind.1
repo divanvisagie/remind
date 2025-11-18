@@ -5,7 +5,7 @@ remind \- simple reminder manager
 
 .SH SYNOPSIS
 .B remind
-[\-c] [\-a TEXT] [\-d N]
+[\-c] [\-a TEXT] [\-d N] [\-e] [\-h]
 
 .SH DESCRIPTION
 .B remind
@@ -20,7 +20,7 @@ program in BSD Unix: simple commands, plain text storage, and direct editing.
 .SH OPTIONS
 .TP
 .B \-c
-Check reminders. Prints the current list of reminders to stdout.
+Check reminders. Prints the current list of reminders to stdout. This is the default action.
 
 .TP
 .B \-a \fITEXT\fR
@@ -32,8 +32,16 @@ If \fITEXT\fR contains spaces, quote it.
 Delete reminder at line number \fIN\fR (1-based).
 
 .TP
-.B (no options)
+.B \-e
 Open the reminders file in \fI$EDITOR\fR for manual editing. If no $EDITOR is set, use \fIvi\fR.
+
+.TP
+.B \-h, \--help
+Show the help message.
+
+.TP
+.B (no options)
+Check reminders. This is the default action, same as \fI-c\fR.
 
 .SH FILES
 .TP
@@ -50,7 +58,7 @@ remind -a "Buy milk"
 .TP
 List all reminders:
 .EX
-remind -c
+remind
 .EE
 
 .TP
@@ -62,13 +70,13 @@ remind -d 2
 .TP
 Edit reminders manually in \fInvim\fR:
 .EX
-remind
+remind -e
 .EE
 
 .TP
 Automatically check reminders every time you start a shell:
 .EX
-echo 'remind -c' >> ~/.zshrc
+echo 'remind' >> ~/.zshrc
 .EE
 
 .SH SEE ALSO
