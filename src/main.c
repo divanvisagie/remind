@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 #define NUMBER_SPACING 2
 #define MAX_LINES 1024
@@ -72,21 +73,37 @@ bool print_header(int width) {
     return true;
 }
 
-/// Ensures the directory for the reminders file exists
+void create_dir_recursive(const char *path) {
+    char dir_path[PATH_MAX];
+    strncpy(dir_path, path, sizeof(dir_path));
+    dir_path[sizeof(dir_path) - 1] = '\0';
+
+    // Create directories recursively without invoking the shell
+    for (char *p = dir_path + 1; *p; p++) {
+        if (*p == '/') {
+            *p = '\0';
+            if (mkdir(dir_path, 0755) != 0 && errno != EEXIST) {
+                return;
+            }
+            *p = '/';
+        }
+    }
+    mkdir(dir_path, 0755);
+}
+
 void ensure_remind_dir(const char *file_path) {
     char dir_path[PATH_MAX];
-    strcpy(dir_path, file_path);
+    strncpy(dir_path, file_path, sizeof(dir_path));
+    dir_path[sizeof(dir_path) - 1] = '\0';
 
     // Find the last slash to get directory path
     char *last_slash = strrchr(dir_path, '/');
-    if (last_slash) {
-        *last_slash = '\0';  // Terminate string at last slash
-
-        // Use system command to create directory recursively
-        char mkdir_cmd[PATH_MAX + 20];
-        snprintf(mkdir_cmd, sizeof(mkdir_cmd), "mkdir -p \"%s\"", dir_path);
-        system(mkdir_cmd);
+    if (!last_slash) {
+        return;
     }
+    *last_slash = '\0';  // Terminate string at last slash
+
+    create_dir_recursive(dir_path);
 }
 
 /// Checks the reminders in the file and prints them out
